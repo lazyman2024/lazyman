@@ -120,27 +120,28 @@ head1.next.next.next=ListNode(4)
 head1.next.next.next.next=secondnode
 print("does linked list have a cycle?",has_cycle(head1))
 
-5.#5.implement the merge sort
+5.#5.quick sort
+def quicksort(arr):
+    # Base case: An array with 0 or 1 elements is already sorted
+    if len(arr) <= 1:
+        return arr
+    
+    # Step 1: Choose the pivot (last element in the array)
+    pivot = arr[-1]
+    
+    # Step 2: Partition the array into two sub-arrays
+    left = [x for x in arr[:-1] if x <= pivot]  # Elements less than or equal to pivot
+    right = [x for x in arr[:-1] if x > pivot]  # Elements greater than pivot
+    
+    # Step 3: Recursively apply QuickSort to left and right partitions
+    return quicksort(left) + [pivot] + quicksort(right)
 
-def binary_search(arr, target):
-    low = 0
-    high = len(arr) - 1
-    
-    while low <= high:
-        mid = (low + high) // 2
-        
-        if arr[mid] == target:
-            return mid
-        elif arr[mid] > target:
-            high = mid - 1
-        else:
-            low = mid + 1
-    
-    return -1
-arr = [1, 2, 4, 5, 7, 8, 10]
-target = 5
-result = binary_search(arr, target)
-print(f"Element {target} found at index {result}")
+# Example usage
+arr = [10, 7, 8, 9, 1, 5]
+sorted_arr = quicksort(arr)
+print("Original array:", arr)
+print("Sorted array:", sorted_arr)
+
 
 
 6..#6.implement the binary search 
