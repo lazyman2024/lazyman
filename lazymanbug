@@ -203,6 +203,38 @@ def fibonacci(n):
 n = 10
 print(f"Fibonacci number F({n}) is:", fibonacci(n))
 
+8.
+
+#
+
+# Depth-First Search function
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()  # Initialize the visited set to track nodes
+
+    visited.add(start)  # Mark the starting node as visited
+    print(start, end=" ")  # Print the current node as part of traversal
+
+    # Recursively visit each unvisited neighbor
+    for neighbor in graph[start]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)  # Recursive DFS call
+
+# Example graph represented as an adjacency list (dictionary)
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+# Run DFS starting from node 'A'
+print("DFS traversal starting from node 'A':")
+dfs(graph, 'A')
+
+
 
 9.#implement the binary search tree
 
@@ -266,3 +298,58 @@ print("Height of the tree:", bst.find_height(bst.root))
 print("In-order traversal of the tree:")
 bst.inorder_traversal(bst.root)
 print()  # For clean output formatting
+
+
+10.
+def find_duplicates(arr):
+    seen = set()  # Create an empty set to store unique elements
+    duplicates = []  # Create an empty list to store duplicates
+
+    for element in arr:
+        if element in seen:
+            duplicates.append(element)  # If element is already in 'seen', it's a duplicate
+        else:
+            seen.add(element)  # Otherwise, add element to 'seen'
+    
+    return duplicates  # Return list of duplicates
+
+# Example usage
+arr = [1, 2, 3, 4, 2, 5, 6, 3]
+print("Duplicate elements:", find_duplicates(arr))
+
+
+
+11.	Implement a program to merge k sorted arrays using a priority queue. 
+import heapq
+
+def merge_k_sorted_arrays(arrays):
+    min_heap = []
+    result = []
+
+    # Step 1: Add the first element of each array to the min-heap
+    for i in range(len(arrays)):
+        if arrays[i]:  # Only if the array is not empty
+            heapq.heappush(min_heap, (arrays[i][0], i, 0))
+
+    # Step 2: Merge arrays by popping the smallest element from the heap
+    while min_heap:
+        value, array_index, element_index = heapq.heappop(min_heap)
+        result.append(value)  # Add smallest element to result
+
+        # If more elements are left in the same array, push the next element into the heap
+        if element_index + 1 < len(arrays[array_index]):
+            next_value = arrays[array_index][element_index + 1]
+            heapq.heappush(min_heap, (next_value, array_index, element_index + 1))
+
+    return result
+
+# Example usage
+arrays = [
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9]
+]
+print("Merged array:", merge_k_sorted_arrays(arrays))
+
+12.
+
